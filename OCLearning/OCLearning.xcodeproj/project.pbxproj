@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D2B77DB9224865940069DB27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B77DB8224865940069DB27 /* main.m */; };
 		D2B77DC1224865F90069DB27 /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B77DC0224865F90069DB27 /* Phone.m */; };
+		D2E1CECD2249B74A00B0C331 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E1CECC2249B74A00B0C331 /* Person.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -28,6 +29,8 @@
 		D2B77DB8224865940069DB27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D2B77DBF224865F90069DB27 /* Phone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Phone.h; sourceTree = "<group>"; };
 		D2B77DC0224865F90069DB27 /* Phone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Phone.m; sourceTree = "<group>"; };
+		D2E1CECB2249B74A00B0C331 /* Person.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		D2E1CECC2249B74A00B0C331 /* Person.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				D2B77DB8224865940069DB27 /* main.m */,
+				D2E1CECB2249B74A00B0C331 /* Person.h */,
+				D2E1CECC2249B74A00B0C331 /* Person.m */,
 				D2B77DBF224865F90069DB27 /* Phone.h */,
 				D2B77DC0224865F90069DB27 /* Phone.m */,
 			);
@@ -123,6 +128,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2E1CECD2249B74A00B0C331 /* Person.m in Sources */,
 				D2B77DC1224865F90069DB27 /* Phone.m in Sources */,
 				D2B77DB9224865940069DB27 /* main.m in Sources */,
 			);

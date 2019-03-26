@@ -37,4 +37,42 @@ return [NSString stringWithFormat:@"手机信息 \n屏幕尺寸:%f，机身颜�
 }
 ```
 打印phone的时候，默认调用description方法，所以，可重写该方法进行打印。
+### 视频6重点
+new的作用。
+```
+Phone *phone = [Phone new];
+1.给对象分配内存空间地址
+2.给对象完成初始化操作
+3.返回对象空间地址
+```
+利用alloc 完成对象空间分配，init完成初始化.  nil赋予对象不指向任何内存空间，可以避免野指针。
+```
+//不指向任何空间地址
+phone = nil;
+//连调使用
+phone = [[Phone alloc]init]; //完成初始空间分配和初始化
+```
+### 视频7重点
+类的自定义构造方法 使用instancetype方法返回自定义构造类
+```
+-(instancetype)initWithName:(NSString *)name age:(NSInteger)age sex:(NSString *)sex{
+//完成父类的对象
+self = [super init];
+if(self){  //判断对象操作
+_name = name;
+_age = age;
+_sex = sex;
+}
+return self;
+}
+```
+返回类型为instancetype类型，后面跟上需要初始化的属性
+在函数体内部首先完成父类的初始化，随后加一个if判断，判断是否初始化成功，接着进行变量赋值。返回self
+person类调用。
+```
+Person *person = [[Person alloc]initWithName:@"ckq" age:20 sex:@"male"];
+NSLog(@"%@",person);
+```
+即可完成初始化。
+
 

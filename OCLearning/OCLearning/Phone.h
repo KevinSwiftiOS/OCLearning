@@ -17,7 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
     //改变访问域
     @public
     CGFloat _screenSize;
-    NSString *_color;
+    NSString *_color; //指向字符串对象
     CGFloat _memory;
 }
 //打电话的方法

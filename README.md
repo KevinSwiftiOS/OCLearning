@@ -74,5 +74,30 @@ Person *person = [[Person alloc]initWithName:@"ckq" age:20 sex:@"male"];
 NSLog(@"%@",person);
 ```
 即可完成初始化。
-
-
+### 视频10重点
+set和get方法，封装私有属性。
+```
+//set和get方法
+-(void)setName:(NSString *)name;
+-(void)setAge:(NSInteger *)age;
+-(void)setSex:(NSString *)sex;
+//取值 get方法
+-(NSString *)name;
+-(NSString *)sex;
+-(NSInteger)age;
+```
+set和get方法的使用，私有属性sex赋值为set中的sex,get方法调用，直接返回name属性
+```
+-(void)setSex:(NSString *)sex{
+    _sex = sex;
+}
+-(NSString *)name{
+    return _name;
+}
+```
+### 视频11重点
+点语法的使用，如果在等号左边就是调用set方法，若是在等号右边，则是调用get方法。
+```
+person.name = @"cpp"; //点语法调用set语法
+NSLog(@"%@",person.name); //点语法调用get方法
+```

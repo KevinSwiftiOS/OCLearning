@@ -22,7 +22,7 @@ int main(int argc, const char * argv[]) {
         NSLog(@"%p",phone);//对象n内存空间地址
         phone->_color = @"黑色";
         phone->_memory = 1024;
-        NSLog(@"%@",phone); //默认调用description方法
+        NSLog(@"%@",phone);//默认调用description方法
         [phone makeCallToSomeOne: @"小明"];
         [phone sendMessage:@"今天天气不错"toReceive:@"小明"];
         //不指向任何空间地址
@@ -30,8 +30,12 @@ int main(int argc, const char * argv[]) {
         //连调使用
         phone = [[Phone alloc]init]; //完成初始空间分配和初始化
         Person *person = [[Person alloc]initWithName:@"ckq" age:20 sex:@"male"];
+        [person setSex:@"female"];
+        [person setAge:20];
+        [person setName:@"ccc"];
+        person.name = @"cpp"; //点语法调用set语法
         NSLog(@"%@",person);
-    
+       NSLog(@"%@",person.name); //点语法调用get方法
     }
     return 0;
 }

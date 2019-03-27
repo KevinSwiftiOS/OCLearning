@@ -20,6 +20,29 @@
     }
     return self;
 }
+
+-(void)setName:(NSString *)name{
+    _name = name;
+}
+-(void)setAge:(NSInteger *)age{
+    _age = age;
+}
+-(void)setSex:(NSString *)sex{
+    _sex = sex;
+}
+-(NSString *)name{
+    return _name;
+}
+-(NSString *)sex
+{
+    return _sex;
+}
+-(NSInteger)age{
+    return _age;
+}
+
+
+
 -(NSString *)description{
     return [NSString stringWithFormat:@"name = %@,age = %zd,sex = %@",_name,_age,_sex];
 }

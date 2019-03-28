@@ -30,10 +30,10 @@ int main(int argc, const char * argv[]) {
         //连调使用
         phone = [[Phone alloc]init]; //完成初始空间分配和初始化
         Person *person = [[Person alloc]initWithName:@"ckq" age:20 sex:@"male"];
-        [person setSex:@"female"];
-        [person setAge:20];
-        [person setName:@"ccc"];
-        person.name = @"cpp"; //点语法调用set语法
+//        [person setSex:@"female"];
+//        [person setAge:20];
+//        [person setName:@"ccc"];
+        person.name = @"cpp"; //点语法调用set语法 //自动生成set和get语法
         NSLog(@"%@",person);
        NSLog(@"%@",person.name); //点语法调用get方法
     }

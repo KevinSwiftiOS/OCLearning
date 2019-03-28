@@ -101,3 +101,25 @@ set和get方法的使用，私有属性sex赋值为set中的sex,get方法调用�
 person.name = @"cpp"; //点语法调用set语法
 NSLog(@"%@",person.name); //点语法调用get方法
 ```
+### 视频12重点
+属性生成器的使用
+```
+@property NSInteger age;
+@property NSString *sex;
+```
+自动生成属性，并且属性为_age,_sex，自动生成set和get方法，可以采用点(.)语法调用set方法和get方法。
+### 视频13重点
+属性的相关约束
+1.线程安全(原子性)
+1.1 atomic(原子操作)(默认)在多个线程中操作保持线程安全
+1.2nonatomic(非原子操作)
+一般情况下，都使用noatomic,可以提高程序的执行效率。
+2.内存管理约束
+2.1 MRC下，retain(强引用),copy(强引用),assign(弱引用，赋值，默认)对于基本数据类型，可以使用assign
+2.2 ARC下，strong(强引用),weak(弱引用)
+3.读写属性相关
+3.1 readwrite(同时生成setter和getter方法)(默认)
+3.2 readonly(只会生成getter方法)
+4 重命名相关
+4.1 setter方法重命名 方法名称必须附带一个
+4.2 getter方法重命名

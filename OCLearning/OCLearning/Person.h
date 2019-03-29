@@ -32,9 +32,12 @@ NS_ASSUME_NONNULL_BEGIN
 -(NSString *)sex;
 -(NSInteger)age;
 
+
+
 //自定义构造化方法
 -(instancetype)initWithName:(NSString *)name age:(NSInteger)age sex:(NSString *)sex;
-
++(instancetype)person;
+-(void)setName:(NSString *)name;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -108,7 +108,7 @@ NSLog(@"%@",person.name); //点语法调用get方法
 @property NSString *sex;
 ```
 自动生成属性，并且属性为_age,_sex，自动生成set和get方法，可以采用点(.)语法调用set方法和get方法。
-### 视频13重点
+### 视频13重点(重点看)
 属性的相关约束
 1.线程安全(原子性)
 1.1 atomic(原子操作)(默认)在多个线程中操作保持线程安全
@@ -123,3 +123,19 @@ NSLog(@"%@",person.name); //点语法调用get方法
 4 重命名相关
 4.1 setter方法重命名 方法名称必须附带一个
 4.2 getter方法重命名
+### 视频14重点(重点看)
+self和super的区别，self从类本身向上层查找,super从父类开始到自己查找。都只能在类内部使用，不能在类外部使用。
+```
++(instancetype)person{
+//self 代表当前这个类
+Person *person = [[self alloc]init];
+return person;
+}
+-(void)setName:(NSString *)name{
+_name = name;
+//表示当前的这个类 用self来指代
+NSLog(@"1112233");
+NSLog(@"self's class is %@",[self class]);
+}
+```
+以上代码self代表当前类Person

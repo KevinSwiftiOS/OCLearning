@@ -10,10 +10,12 @@
 //使用类 必须导入头文件
 #import "Phone.h"
 #import "Person.h"
+#import "StringTest.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         // insert code here...
        //实例化对象
+        [StringTest test];
         Phone *phone = [Phone new];
         //new方法实际
         //1.给对象分配内存空间地址

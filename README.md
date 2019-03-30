@@ -139,3 +139,151 @@ NSLog(@"self's class is %@",[self class]);
 }
 ```
 以上代码self代表当前类Person
+### 视频15重点
+#### oc当中字符串的使用
+字符串分为可变字符串和不可变字符串
+可变字符串一旦创建就不能替换。
+```
+NSString *string = [[NSString alloc]init];
+NSLog(@"string is %@",string); //不可变字符串
+```
+以上创建便没有意义，因为初始化为空后，后续无法改变
+所以最常见的创建不可变字符串的方法。
+```
+string = @"hello world"; //不可变字符串常量
+NSLog(@"string is %@",string); //不可变字符串 两次用的是不同的指针
+NSLog(@"%p",string);
+NSString *str2 = @"hello world";
+NSLog(@"%p",string); //采用享元模式，节省内存资源，创建字符串时候，放入数据缓冲区
+NSString *str4 = [NSString stringWithCString:"22" encoding:NSUTF8StringEncoding];
+NSLog(@"%p",str4);
+```
+用=多少来进行创建，当创建两个hello world的时候，发现地址都是一样的，因为oc采用了享元模式，放入缓冲区，所以指针指向了同一个内存空间。
+#### 不可变字符串拼接
+```
+//拼接字符串
+NSString *str1 = @"www.";
+NSString *str2 = @"baidu.com";
+NSString *str3 = [NSString stringWithFormat:@"%@%@",str1,str2];
+NSLog(@"%@",str3);
+```
+采用格式化的方法
+拼接常量
+```
+//拼接常量
+str3 = [str3 stringByAppendingString:@"曹凯强"];
+//格式化字符串
+str3 = [str3 stringByAppendingFormat:@"123%@",@"ccc"];
+NSLog(@"%@",str3);
+```
+#### 字符串的分割
+采用指定字符进行分割 分割返回一个数组
+```
+//字符串的分割
+NSArray *array = [str3 componentsSeparatedByString:@"."];
+//按多个字符集进行分割
+NSArray *components = [str3 componentsSeparatedByCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@".()"]];
+NSLog(@"数组为%@",array);
+NSLog(@"数组为%@",components);
+```
+也可以用集合中的一类元素来进行分割。
+获取某一类子串 也算分割
+```
+//获取子串 某一段子串
+NSString *substr = [str3 substringFromIndex:2]; //从指定位置开始 取到末尾
+NSString *substr1 = [str3 substringToIndex:2]; //一直取到索引位置，且不包含
+NSString *substr2 = [str3 substringWithRange:NSMakeRange(2, 5)];
+}
+```
+#### 字符串的比较
+```
+//字符串比较方法
+NSString *str1 = @"hella"; //存的都是地址 内存地址
+NSString *str2 = @"hello";
+if(str1 == str2){
+NSLog(@"true");
+}else
+NSLog(@"false");
+```
+以上这种方法比较是错误的，因为比较的指针的值，刚好指向同一个内存空间，所以输出为true.
+采用系统提供的方法。
+```
+//比较方法
+if([str1 isEqualToString:str2]){
+NSLog(@"true1");
+}else{
+NSLog(@"false2");
+}
+```
+采用equalString方法
+或者用字符串比较的结果返回枚举中的一个值，升序，降序或者相同。
+```
+//字符串比较方法
+NSComparisonResult result =  [str1 compare:str2]; //返回枚举结果 是升序 降序 还是相同
+//枚举一下
+switch (result) {
+case NSOrderedSame:
+NSLog(@"相同");
+break;
+case NSOrderedAscending:
+NSLog(@"升序");
+break;
+case NSOrderedDescending:
+NSLog(@"降序");
+break;
+
+
+default:
+break;
+```
+#### 其余方法
+长度和转化成大写字母
+```
+//新的字符串
+NSString *str = @"www.baidu.com";
+//长度和大写字母
+NSLog(@"len = %zd",str.length);
+NSLog(@"%@",str.uppercaseString);
+```
+查看是否有前缀
+```
+//查看是否有前缀
+if([str hasPrefix:@"www"]){
+NSLog(@"有前缀");
+}
+```
+获取某个子串的范围
+```
+//获取某个子串的范围
+NSRange range = [str rangeOfString:@"baidu"
+];
+NSLog(@"%@",NSStringFromRange(range)); //开始位置和长度
+}
+```
+#### 可变字符串的创建与赋值
+```
+//可变字符串
+NSMutableString *mutabeStr = [[NSMutableString alloc]init];//本身空间内部可以修改
+mutabeStr = [NSMutableString string];
+NSLog(@"%p",mutabeStr);
+//  mutabeStr = @"string"; //这种是创建不可变字符串的最简化方法 所以一般情况下不要使用
+[mutabeStr setString:@"可变"];
+NSLog(@"%@,%p",mutabeStr, mutabeStr);
+[mutabeStr setString:@"123"];
+NSLog(@"%@,%p",mutabeStr, mutabeStr);
+```
+打印出的内存地址空间是一样的
+添加 在指定位置插入 删除 删除指定范围，指定范围内替换元素等一系列方法。
+```
+//追加字符串
+[mutabeStr appendString:@"追加"];
+NSLog(@"%@,%p",mutabeStr, mutabeStr);
+//插入字符串
+[mutabeStr insertString:@"baidu" atIndex:3];
+NSLog(@"%@,%p",mutabeStr, mutabeStr);
+//删除操作
+[mutabeStr deleteCharactersInRange:NSMakeRange(2, 3)];
+NSLog(@"%@,%p",mutabeStr, mutabeStr);
+[mutabeStr replaceCharactersInRange:NSMakeRange(2, 3) withString:@"222"];
+NSLog(@"%@,%p",mutabeStr, mutabeStr);
+```

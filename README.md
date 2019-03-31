@@ -287,3 +287,59 @@ NSLog(@"%@,%p",mutabeStr, mutabeStr);
 [mutabeStr replaceCharactersInRange:NSMakeRange(2, 3) withString:@"222"];
 NSLog(@"%@,%p",mutabeStr, mutabeStr);
 ```
+### 视频19重点
+数组的创建
+不可变数组的创建
+```
+//创建不可变数组 nil是结束的标志 基本数据类型不能添加，只能是对象
+NSArray *array= [[NSArray alloc]initWithObjects:@1,@2, nil];
+NSLog(@"%@",array);
+```
+nil表示到末尾，不添加到数组中。
+```
+//获取个数
+NSLog(@"length :%zd",array.count);
+//简化的创建数组方式 不需要添加nil
+array = @[@1,@2,@3];
+NSLog(@"%@",array);
+```
+获取个数，和一般的创建数组的方式，不必添加nil值。
+通过类方法创建和取出其中的值，当值不确定的时候，可以使用id类型。
+```
+//通过类方法创建 前面的array添加
+NSNumber *num = @1.1;
+array = [NSArray arrayWithObjects:@"one",@"two",array,num,nil];
+NSLog(@"length :%@",array);
+//取出数组中的元素 泛型
+id object = [array objectAtIndex:0];
+NSLog(@"is :%@",object);
+```
+### 视频20重点
+遍历数组 基本的for循环遍历
+```
+//创建数组
+NSArray *array = @[@"1",@"2",@"3"];
+//最基本的遍历
+for(NSInteger i = 0; i < array.count;i++){
+NSLog(@"%@",array[i]);
+}
+```
+用for in循环 不确定类型时，可以用泛型id
+```
+//for in循环 快速枚举 不确定类型 不需要下标
+for (id object in array) {
+NSLog(@"%@",object);
+}
+```
+通过枚举器进行遍历 获得枚举器后进行遍历
+```
+//使用枚举器进行遍历
+NSEnumerator *enumerator = [array objectEnumerator];
+//像迭代器一样 一直执行到下一步
+id object = [enumerator nextObject];
+while (object) {
+NSLog(@"object is %@",object);
+object = [enumerator nextObject];
+}
+```
+

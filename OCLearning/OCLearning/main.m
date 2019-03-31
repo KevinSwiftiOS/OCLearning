@@ -11,8 +11,11 @@
 #import "Phone.h"
 #import "Person.h"
 #import "StringTest.h"
+#import "ArrayTest.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
+        //数组对象使用
+        [ArrayTest test];
         // insert code here...
        //实例化对象
         [StringTest test];

@@ -342,4 +342,114 @@ NSLog(@"object is %@",object);
 object = [enumerator nextObject];
 }
 ```
+### 视频21重点
+数组的排序
+创建不可变数组
+```
+NSArray *array = @[@"5",@"3",@"4",@"1",@"2"];
+```
+采用oc字符串中有的排序方法进行比较
+```
+//排序 选择器 字符串中提供compare方法
+NSArray *resultArray = [array sortedArrayUsingSelector:@selector(compare:)];
+NSLog(@"%@",resultArray);
+```
+当我们创建自定义类后，有时候没有排序方法，因此我们要自己定义排序方法。
+创建自定义类Person1
+```
 
+@interface Person1 : NSObject
+@property(nonatomic,copy)NSString *name;
+@property(nonatomic,assign)NSUInteger age;
+//工厂方法，用于对象的创建
++(instancetype)personWithName:(NSString *)name age:(NSUInteger)age;
+//定义排序方法 返回p枚举的排序结果
+-(NSComparisonResult)comparePerson:(Person1 *)person;
+@end
+```
+定义属性生成器为name和age.
+定义工厂方法来创建类。
+定义排序方法。
+```
++(instancetype)personWithName:(NSString *)name age:(NSUInteger)age{
+Person1 *person1 = [[self alloc]init];
+person1.age = age;
+person1.name = name;
+return person1;
+}
+```
+创建类
+```
+-(NSComparisonResult)comparePerson:(Person1 *)person{
+//根据name来进行自动排序
+return [self.name compare:person.name];
+}
+```
+定义排序方法，之后方法的调用便可以使用comparePerson，该方法中又使用name中的字符串形式进行比较排序。
+```
+Person1 *person1 = [Person1 personWithName:@"a" age:1];
+Person1 *person2 = [Person1 personWithName:@"r" age:2];
+Person1 *person3 = [Person1 personWithName:@"b" age:3];
+Person1 *person4 = [Person1 personWithName:@"d" age:4];
+Person1 *person5 = [Person1 personWithName:@"c" age:5];
+//创建数组
+NSArray *personArray = @[person1,person2,person3,person4,person5];
+resultArray = [personArray sortedArrayUsingSelector:@selector(comparePerson:)];
+NSLog(@"%@",resultArray);
+```
+@selector中的选择器便可以通过调用comparePerson来实现排序。
+也可以使用自定义排序方法，针对对象中的某个属性进行排序，ascending为true时返回升序，为false时返回降序。可以定义多个选择器。
+```
+//使用自定义的排序方式 指定对应的排序名字 和是否升序 yes是升序 no是降序
+NSSortDescriptor *desc1 = [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:NO];
+NSSortDescriptor *desc2 = [NSSortDescriptor sortDescriptorWithKey:@"age" ascending:TRUE];
+resultArray = [personArray sortedArrayUsingDescriptors:@[desc1,desc2]];
+NSLog(@"result%@",resultArray);
+```
+### 视频22重点
+通过数组索引下标访问，也可以通过firstObject和lastObject来进行访问
+```
+//通过数组索引值访问 和首尾元素访问
+NSArray *array = @[@"1",@"2",@"3",@"4"];
+NSLog(@"first object:%@",array.firstObject);
+NSLog(@"first object:%@",array.lastObject);
+```
+元素的拼接 string 分割后成数组。 数组拼接后成字符串。
+```
+//元素的拼接 分割后随后进行拼接
+NSString *string = @"i love you";
+NSArray *array1 = [string componentsSeparatedByString:@" "];
+//进行连接
+NSString *string1 = [array1 componentsJoinedByString:@"-"];
+NSLog(@"%@",string1);
+```
+可变数组的使用。
+创建可变数组和添加元素
+```
+//可变数组
+NSMutableArray *array = [NSMutableArray array];
+[array addObject:@1];
+[array addObject:@"2"];
+```
+数组中元素的类型可以不一样。
+在某一个位置上插入元素
+```
+//在某一个索引位置上插入元素
+[array insertObject:@2 atIndex:1];
+```
+删除某个元素，会找到所有为这个元素的值，随后删除。
+```
+ [array removeObject:@2];
+```
+清空元素
+```
+//清空元素
+[array removeAllObjects];
+```
+替换某个位置的元素，传入要替换的位置和替换的值。
+```
+//替换的对象
+[array replaceObjectAtIndex:1 withObject:@"2"];
+NSLog(@"array is %@",array);
+```
+ 

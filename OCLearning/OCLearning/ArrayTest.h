@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Person1.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface ArrayTest : NSObject

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		D24BFDD0224F0CB000EABBB3 /* StringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D24BFDCF224F0CB000EABBB3 /* StringTest.m */; };
 		D24BFDD322505CFE00EABBB3 /* ArrayTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D24BFDD222505CFE00EABBB3 /* ArrayTest.m */; };
+		D282852F2252F1A8003ECB7A /* Person1.m in Sources */ = {isa = PBXBuildFile; fileRef = D282852E2252F1A8003ECB7A /* Person1.m */; };
 		D2B77DB9224865940069DB27 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B77DB8224865940069DB27 /* main.m */; };
 		D2B77DC1224865F90069DB27 /* Phone.m in Sources */ = {isa = PBXBuildFile; fileRef = D2B77DC0224865F90069DB27 /* Phone.m */; };
 		D2E1CECD2249B74A00B0C331 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = D2E1CECC2249B74A00B0C331 /* Person.m */; };
@@ -31,6 +32,8 @@
 		D24BFDCF224F0CB000EABBB3 /* StringTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StringTest.m; sourceTree = "<group>"; };
 		D24BFDD122505CFE00EABBB3 /* ArrayTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArrayTest.h; sourceTree = "<group>"; };
 		D24BFDD222505CFE00EABBB3 /* ArrayTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArrayTest.m; sourceTree = "<group>"; };
+		D282852D2252F1A8003ECB7A /* Person1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Person1.h; sourceTree = "<group>"; };
+		D282852E2252F1A8003ECB7A /* Person1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Person1.m; sourceTree = "<group>"; };
 		D2B77DB5224865940069DB27 /* OCLearning */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OCLearning; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2B77DB8224865940069DB27 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D2B77DBF224865F90069DB27 /* Phone.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Phone.h; sourceTree = "<group>"; };
@@ -78,6 +81,8 @@
 				D24BFDCF224F0CB000EABBB3 /* StringTest.m */,
 				D24BFDD122505CFE00EABBB3 /* ArrayTest.h */,
 				D24BFDD222505CFE00EABBB3 /* ArrayTest.m */,
+				D282852D2252F1A8003ECB7A /* Person1.h */,
+				D282852E2252F1A8003ECB7A /* Person1.m */,
 			);
 			path = OCLearning;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D282852F2252F1A8003ECB7A /* Person1.m in Sources */,
 				D2E1CECD2249B74A00B0C331 /* Person.m in Sources */,
 				D24BFDD322505CFE00EABBB3 /* ArrayTest.m in Sources */,
 				D2B77DC1224865F90069DB27 /* Phone.m in Sources */,

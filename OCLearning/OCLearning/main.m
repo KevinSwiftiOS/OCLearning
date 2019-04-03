@@ -12,6 +12,7 @@
 #import "Person.h"
 #import "StringTest.h"
 #import "ArrayTest.h"
+#import "DictTest.h"
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         //数组对象使用
@@ -19,6 +20,7 @@ int main(int argc, const char * argv[]) {
         // insert code here...
        //实例化对象
         [StringTest test];
+        [DictTest test];
         Phone *phone = [Phone new];
         //new方法实际
         //1.给对象分配内存空间地址

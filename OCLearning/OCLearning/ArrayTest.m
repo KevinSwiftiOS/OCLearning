@@ -101,8 +101,8 @@
     [array removeAllObjects];
     [array removeObject:@2];
     //替换的对象
-    [array replaceObjectAtIndex:1 withObject:@"2"];
-    NSLog(@"array is %@",array);
+//    [array replaceObjectAtIndex:1 withObject:@"2"];
+//    NSLog(@"array is %@",array);
  
 
 }

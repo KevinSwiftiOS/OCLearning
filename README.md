@@ -452,4 +452,81 @@ NSMutableArray *array = [NSMutableArray array];
 [array replaceObjectAtIndex:1 withObject:@"2"];
 NSLog(@"array is %@",array);
 ```
- 
+### 视频23重点
+创建不可变字典的方式 最简化的创建与数组，字符串相同
+```
+NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@"one",@"1",@"two",@"2",nil];
+NSLog(@"%@",dict);
+//最简化创建
+dict = @{@"name":@"tom",
+@"name":@"ckq", //当相同Key时，会自动选择第一个
+@"nickname":@"tangmu",
+@"age":@12  //转换成nsnumber对象 不需要添加nil
+};
+NSLog(@"%@",dict);
+```
+取出某个key的值
+```
+//取出值
+NSString *name = [dict objectForKey:@"name"]; //不存在返回nil
+NSLog(@"name%@",name);
+NSNumber *age = dict[@"age"];
+NSLog(@"age = %@",age);
+NSLog(@"alll keys  = %@",[dict allKeysForObject:@"tom"]);
+```
+取出该value对应的所有key值，value值是可以重复的，但是key值是不可重复的。
+取出所有的key和所有的value.
+```
+//获取所有的Key和value
+NSLog(@"age = %@",dict.allKeys);
+NSLog(@"age = %@",dict.allValues);
+```
+字典和其余的数据类型，例如数组，字典和字符串等可以嵌套使用。
+```
+dict = @{@"name":@"Tom",
+@"infoDict":@[@1,@2]
+};
+```
+### 视频24重点
+可以通过for in循环来遍历字典。
+```
+NSDictionary *dict = @{@"name":@"Tom",@"nickname":@"tony",@"age":@20};
+//通过for in循环遍历
+for(NSString *key in dict){
+NSLog(@"%@:%@",key,dict[key]);
+}
+```
+遍历所有的value
+```
+//遍历value
+for(id object in dict.allValues){
+NSLog(@"value is object",object);
+}
+```
+### 视频25重点
+可变字典的创建，可以从不可变字典中添加值。
+```
+//创建空的可变字典
+NSMutableDictionary *dict = [NSMutableDictionary dictionary];
+//从其他字典添加键值对
+[dict addEntriesFromDictionary:@{@"name":@"tom",@"age":@12}];
+```
+setObject当添加的时候，已存在时是修改，不存在时是添加。
+```
+//添加一对键值对
+[dict setObject:@167 forKey:@"height"];
+//修改键值对
+[dict setObject:@30 forKey:@"age"];
+```
+执行删除的操作。
+```
+//执行删除操作
+[dict removeObjectForKey:@"age"];
+//删除所有键值对
+[dict removeAllObjects];
+```
+setValue是一个智能的方法，当value设置为nil的时候，会执行删除的操作，当key存在的时候，并且value不为空，会执行修改操作。
+```
+[dict setValue:nil forKey:@"age"]; //会执行智能操作，当设置为nil的时候，会自动删除，当设置的值不会nil的时候，会自动添加和修改。
+NSLog(@"mutable is %@",dict);
+```

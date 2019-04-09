@@ -618,3 +618,33 @@ dict = [NSDictionary dictionaryWithContentsOfFile:@"/Users/caokaiqiang/Documents
 NSLog(@"数组是%@",arr);
 NSLog(@"字典是%@",dict);
 ```
+### 视频31重点
+NSUserDefault用来存储用户的偏好设置，是持久化的操作。
+获取单例对象，设置值，并且设置为同步马上生效
+```
+NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+NSString *str = @"www.baidu.com";
+//设置值
+[defaults setObject:str forKey:@"website"];
+//同步马上实现
+[defaults synchronize];
+```
+获得值
+```
+//获取值
+NSString *result = [defaults objectForKey:@"website"
+];
+NSLog(@"result is %@",result);
+```
+移除值
+```
+//移除key-value
+[defaults removeObjectForKey:@"website"];
+```
+查找所有的key-value
+```
+//查找所有的Key-value
+NSDictionary *dict = defaults.dictionaryRepresentation;
+NSLog(@"%@",dict);
+NSLog(@"Hello, World!");
+```

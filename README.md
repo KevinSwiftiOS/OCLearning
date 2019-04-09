@@ -530,3 +530,91 @@ setValue是一个智能的方法，当value设置为nil的时候，会执行删�
 [dict setValue:nil forKey:@"age"]; //会执行智能操作，当设置为nil的时候，会自动删除，当设置的值不会nil的时候，会自动添加和修改。
 NSLog(@"mutable is %@",dict);
 ```
+### 视频26重点
+文件的主要操作对象有NSFileManager和NSFileHandler
+NSFileManager的使用。
+```
+//错误的error
+NSError *error;
+//拿到文件管理类对象 使用单例模式
+NSFileManager *fileManager = [NSFileManager defaultManager];
+//创建文件 第一个是路径 第二个参数式是否产生中间路径，第三个是文件的属性默认用nil，第4个是文件产生错误的抛出错误方法 返回bool值，判断创建是否成功还是失败
+BOOL ret = [fileManager createDirectoryAtPath:kPathAtFileOperation(@"test") withIntermediateDirectories:NO attributes:nil error:&error];
+//nsfilemanager创建文件
+//将nsstring类型转换成nsdata类型的
+```
+用error来保存错误。保存的相对路径，是否产生中间路径和文件的一些属性。默认用nil。最后来保存错误。
+路径的宏定义
+```
+#define kPathAtFileOperation(subpath) \
+[NSString stringWithFormat:@"/Users/caokaiqiang/Documents/iOS/OCLearning/FileOperation/%@",subpath]
+```
+用nsstring format来进行占位和填充。
+写入数据
+将string类型转化成data类型再写入
+```
+//将nsstring类型转换成nsdata类型的
+NSString *string = @"ckq";
+NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+ret = [fileManager createFileAtPath:kPathAtFileOperation(@"test.txt") contents:data attributes:nil];
+//二级error传进去
+if(ret){
+NSLog(@"创建成功");
+}else{
+NSLog(@"创建失败 原因%@",error);
+}
+```
+路径的遍历
+```
+//利用fileManager进行路径遍历 分为浅度遍历和深度遍历
+NSArray *contents = [fileManager contentsOfDirectoryAtPath:kPathAtFileOperation(@"") error:nil];
+NSLog(@"content is %@",contents);
+//深度遍历 将子文件夹下面的也会输出
+contents = [fileManager subpathsOfDirectoryAtPath:kPathAtFileOperation(@"") error:nil];
+NSLog(@"content is %@",contents);
+```
+分为浅度遍历和深度遍历，深度遍历包括会将子文件夹遍历输出。而浅度不会。
+移动文件夹
+```
+//移动文件夹
+[fileManager moveItemAtPath:kPathAtFileOperation(@"test.txt") toPath: kPathAtFileOperation(@"test/test") error:nil];
+```
+查看文件的相关属性。
+```
+//查看属性
+NSDictionary *dict =  [fileManager attributesOfItemAtPath:kPathAtFileOperation(@"test.txt") error:nil];
+NSLog(@"%@",dict);
+if([fileManager fileExistsAtPath:kPathAtFileOperation(@"test.txt")]){
+NSLog(@"文件存在");
+}else
+NSLog(@"文件不存在");
+```
+对文件的操作可以用一个文件的相关句柄来进行操作
+```
+//一个文件的句柄
+NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingAtPath:kPathAtFileOperation(@"test.txt")];
+//只读的方式打开文本文件
+[fileHandle closeFile];
+```
+### 视频30重点
+持久化数据的相关方法。可以用plist文件存储，或者用nsuserdefault文件存储，或者用数据库。
+plist文件的根节点只能是数组类型或者是字典类型的。
+```
+//plist文件的存储 atomically为true时，表示写一个文件副本，当文件副本中全部写入后，再写入文件
+NSArray *arr = @[@"one",@"two",@"three"];
+[arr writeToFile:@"/Users/caokaiqiang/Documents/iOS/OCLearning/PlistFile/test.plist"
+atomically:true];
+//字典持久化存储
+NSDictionary *dict =@{@"name":@"ckq"};
+[dict writeToFile:@"/Users/caokaiqiang/Documents/iOS/OCLearning/PlistFile/test1.plist"
+atomically:true];
+```
+atomically为true时，表示会先写入文本附件中，当文本附件中写好后，再写入文件。
+读取的时候，要看根节点是什么类型的。若是字典就用字典来接受，若是数组就用数组来接受。
+```
+//看根节点是什么 是数组用数组接 是字典用字典接
+arr = [NSArray arrayWithContentsOfFile:@"/Users/caokaiqiang/Documents/iOS/OCLearning/PlistFile/test.plist"];
+dict = [NSDictionary dictionaryWithContentsOfFile:@"/Users/caokaiqiang/Documents/iOS/OCLearning/PlistFile/test1.plist"];
+NSLog(@"数组是%@",arr);
+NSLog(@"字典是%@",dict);
+```

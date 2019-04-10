@@ -648,3 +648,29 @@ NSDictionary *dict = defaults.dictionaryRepresentation;
 NSLog(@"%@",dict);
 NSLog(@"Hello, World!");
 ```
+### 视频35重点
+通过KVC对属性进行赋值，在外部
+```
+@property(nonatomic,copy)NSString *username;
+@property(nonatomic,copy)NSString *company;
+@property(nonatomic,strong)NSNumber *age;
+```
+通过key-value进行赋值
+```
+// insert code here...
+User *user = [[User alloc]init];
+//通过kvc赋值
+[user setValue:@"default" forKey:@"username"];
+[user setValue:@"default" forKey:@"company"];
+[user setValue:@22 forKey:@"age"];
+[user setValue:@"male" forKey:@"sex"];
+NSLog(@"%@",user);
+```
+打印出来表示KVC赋值成功。通过KVC设置的必须是对象。所以像nsinteger类型的要设置成nsnumber类型。
+打印对象
+```
+-(NSString *)description{
+return [NSString stringWithFormat:@"username = %@,sex = %@",_username,_sex];
+}
+```
+

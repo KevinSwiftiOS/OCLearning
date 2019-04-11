@@ -721,6 +721,35 @@ NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableDa
 [archiver finishEncoding];
 ```
 必须要加finishEncoding方法。完成多个对象的归档。解档方法相同。
+### 视频33重点
+深拷贝与浅拷贝的区别
+浅拷贝只拷贝对象的地址，不产生对象的副本。若修改，有可能2份会同时修改。
+深拷贝会产生对象的副本，若修改，则不会对原来的对象产生影响。
+<img src="/images/image01.jpeg" width = 30% height = 30% />
+```
+NSString *string = @"string";
+NSLog(@"string: %p",string);
+//进行拷贝
+NSString *string2 = [string copy];
+//不可变对象的拷贝 为浅拷贝
+NSLog(@"string2 %p",string2);
+NSString *string3 = [string mutableCopy];
+NSLog(@"string3 is %p",string3);
+
+
+NSMutableString *mutableString = [NSMutableString stringWithString:string];
+NSLog(@"mutableString is %p",mutableString);
+
+
+NSMutableString *mutableCopy = [mutableString mutableCopy];
+NSLog(@"murableStringCopy is %p",mutableCopy);
+```
+将不可变字符串拷贝到不可变字符串，为浅拷贝。利用copy
+将不可变字符串拷贝到可变字符串，为深拷贝。利用mutableCopy
+将可变字符串拷贝到可变字符串，为深拷贝。利用mutableCopy
+mutableCopy为深拷贝，copy为浅拷贝。
+
+
 ### 视频35重点
 通过KVC对属性进行赋值，在外部
 ```

@@ -20,7 +20,7 @@ int main(int argc, const char * argv[]) {
         [personData writeToFile:@"/Users/caokaiqiang/Desktop/personData" atomically:true];
         //解档操作
         //读取二进制文件
-       NSData *personData = [NSData dataWithContentsOfFile:@"/Users/caokaiqiang/Desktop/personData"];
+        personData = [NSData dataWithContentsOfFile:@"/Users/caokaiqiang/Desktop/personData"];
         Person *resultPerson = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
         NSLog(@"%@",resultPerson.name);
         NSLog(@"Hello, World!");

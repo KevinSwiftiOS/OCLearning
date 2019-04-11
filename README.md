@@ -648,6 +648,79 @@ NSDictionary *dict = defaults.dictionaryRepresentation;
 NSLog(@"%@",dict);
 NSLog(@"Hello, World!");
 ```
+### 视频32重点
+通过归档和解档进行数据持久化的操作
+可以对自定义类进行归档和解档的操作 和基本数据类型，例如字典，数组相同。
+person.h中定义属性
+```
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface Person : NSObject <NSCoding>
+@property(nonatomic,copy)NSString *name;
+@property(nonatomic,assign)NSUInteger age;
+@property(nonatomic,copy)NSString *sex;
+@end
+
+NS_ASSUME_NONNULL_END
+```
+实现协议nscoding
+所以必须实现协议中的方法。
+在person.m中实现
+```
+#import "Person.h"
+
+@implementation Person
+//解档操作
+-(instancetype)initWithCoder:(NSCoder *)aDecoder{
+self = [super init];
+if(self){
+//进行解档操作
+_name = [aDecoder decodeObjectForKey:@"name"];
+_age = [aDecoder decodeIntegerForKey:@"age"];
+_sex = [aDecoder decodeObjectForKey:@"sex"];
+}
+return  self;
+}
+//完成属性归档
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+[aCoder encodeObject:_name forKey:@"name"];
+[aCoder encodeInteger:_age forKey:@"age"];
+[aCoder encodeObject:_sex forKey:@"sex"];
+}
+
+@end
+```
+实现归档的encodeWithCoder方法和解档的initWithCoder方法。
+随后在main文件中实现归档操作。
+```
+Person *person = [[Person alloc]init];
+person.name = @"Tom";
+person.age = 28;
+person.sex = @"male";
+//转化成2进制数据
+NSData *personData = [NSKeyedArchiver archivedDataWithRootObject:person requiringSecureCoding:false error:nil];
+[personData writeToFile:@"/Users/caokaiqiang/Desktop/personData" atomically:true];
+```
+赋值和转化成data类型的2进制数据 进行写入
+进行解档操作和读取二进制文件输出。输出位data后再转化成person对象。
+```
+//解档操作
+//读取二进制文件
+NSData *personData = [NSData dataWithContentsOfFile:@"/Users/caokaiqiang/Desktop/personData"];
+Person *resultPerson = [NSKeyedUnarchiver unarchiveObjectWithData:personData];
+NSLog(@"%@",resultPerson.name);
+```
+多个对象进行归档操作
+```
+NSMutableData *mutableData = [NSMutableData data];
+NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:mutableData];
+[archiver encodeObject:person forKey:@"person"];
+//结束归档
+[archiver finishEncoding];
+```
+必须要加finishEncoding方法。完成多个对象的归档。解档方法相同。
 ### 视频35重点
 通过KVC对属性进行赋值，在外部
 ```

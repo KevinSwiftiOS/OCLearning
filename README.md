@@ -748,7 +748,29 @@ NSLog(@"murableStringCopy is %p",mutableCopy);
 将不可变字符串拷贝到可变字符串，为深拷贝。利用mutableCopy
 将可变字符串拷贝到可变字符串，为深拷贝。利用mutableCopy
 mutableCopy为深拷贝，copy为浅拷贝。
-
+### 视频34重点
+json对象的表示与存储。
+json对象只能是对象或者字典。
+```
+//将json对象转化成json数据 json对象只能是字典或者是数组 json数据是二进制表示
+NSDictionary *jsonDict = @{@"name":@"Tom",
+@"age":@20
+};
+NSData *data = [NSJSONSerialization dataWithJSONObject:jsonDict options:0 error:nil];
+NSLog(@"data is %@",data);
+```
+json数据是二进制表示，所以将json字典转化成二进制数据NSData
+将json字符串转化成json数据，首先转化成二进制数据，再转换成json对象。
+```
+//json字符串转化成json对象
+NSString *jsonString = @"{\"name\":\"xiaohong\"}";
+//转化成json数据
+NSData *jsonData = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+//转化成json对象
+NSDictionary *resultDict = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+NSLog(@"result is %@",resultDict);
+```
+通过NSJSONSerialization的方法进行json对象和json数据之间的转换。
 
 ### 视频35重点
 通过KVC对属性进行赋值，在外部
@@ -775,4 +797,65 @@ NSLog(@"%@",user);
 return [NSString stringWithFormat:@"username = %@,sex = %@",_username,_sex];
 }
 ```
+### 视频36重点
+runtime的基本使用和介绍。
+<img src="/images/image02.jpeg" width = 30% height = 30% />
+<img src="/images/image03.jpeg" width = 30% height = 30% />
+作用 在对象身上操作，获取对象是什么类，有什么实例变量，属性，和方法。
+创建person类 定义实例变量
+```
+@property(nonatomic,copy)NSString *name;
+@property(nonatomic,assign)NSInteger age;
++(instancetype)person;
+```
+实现方法
+```
++(instancetype)person{
+Person *person = [[self alloc]init];
+return person;
+}
+```
+创建Person对象，获取person是什么类
+```
+Person *person = [Person person];
+NSLog(@"%@",[person class]); //任意对象所属类型
+//遍历实例变量 将类型保存到局部变量中 //获取实例变量
 
+```
+获取实例变量，这里是_name,_age等
+```
+//遍历实例变量 将类型保存到局部变量中 //获取实例变量
+Class personClass = person.class;
+//无符号整数
+unsigned int outCount = 0;
+Ivar *ivarPtr = class_copyIvarList(personClass, &outCount);
+for(NSInteger i = 0; i < outCount;i++){
+Ivar ivar = ivarPtr[i];
+NSLog(@"实例变量:%s",ivar_getName(ivar));
+}
+```
+遍历属性，这里是age，name等
+```
+//遍历属性
+objc_property_t *propertyPtr = class_copyPropertyList(personClass, &outCount);
+for(NSInteger i = 0; i < outCount;i++){
+objc_property_t property = propertyPtr[i];
+NSLog(@"属性：%s",property_getName(property));
+```
+遍历方法，有setAge等方法。.cxx_destruct方法是对象自带的，不用理会。
+```
+Method *methodPtr = class_copyMethodList(personClass, &outCount);
+for(NSInteger i = 0; i < outCount;i++){
+Method method = methodPtr[i];
+SEL selector = method_getName(method);
+NSLog(@"%@",NSStringFromSelector(selector));
+}
+```
+setAge方法的原理实现。
+```
+//底层实现
+[person setAge:10];
+objc_msgSend(person,@selector(setAge:),15);
+//两个方法实现效果相同，第二个是第一个的底部实现
+```
+第二个方法是第一个方法的底层原理实现。2个方法最后的效果相同。

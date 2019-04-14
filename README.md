@@ -859,3 +859,79 @@ objc_msgSend(person,@selector(setAge:),15);
 //两个方法实现效果相同，第二个是第一个的底部实现
 ```
 第二个方法是第一个方法的底层原理实现。2个方法最后的效果相同。
+### 视频37重点
+tableView的设置
+设置appDelegete 使得启动窗口为自己设置的viewController
+```
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//设置window
+[self setWindow:[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds]];
+[self.window makeKeyAndVisible];
+[self.window setRootViewController:[[FirstTableViewController alloc]init]];
+// Override point for customization after application launch.
+return YES;
+}
+```
+设置firstTableViewController 设置tableView的数据源和frame的设置
+```
+[self.view setBackgroundColor:[UIColor whiteColor]];
+UITableView *tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+[self.view addSubview:tableView];
+//设置数据源
+tableView.dataSource = self;
+```
+需要继承协议
+```
+@interface FirstTableViewController()<UITableViewDataSource>
+```
+随后设置必须实现的协议方法。
+```
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+//返回row
+return 5;
+}
+//返回cell的设置
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+UITableViewCell *cell = [[UITableViewCell alloc]init];
+cell.textLabel.text = @"Text";
+//添加自定义视图
+UITextField *textField = [[UITextField alloc]initWithFrame:CGRectMake(0, 0, 150, 40)];
+textField.borderStyle = UITextBorderStyleRoundedRect;
+[cell addSubview:textField];
+return cell;
+}
+```
+tableViewCell的设置是关键。
+设置头尾部视图的方法因情况而定
+```
+//头部视图和尾部视图的设置
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+return @"Header";
+}
+//组的个数
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+return 5;
+}
+```
+通过在xib文件中添加tableView,随后设置代理的方法。
+```
+
+@interface SecondViewController ()<UITableViewDataSource>
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@end
+
+```
+```
+  self.tableView.dataSource = self;
+```
+实现代理所需的方法。
+通过加载xib文件的方法。
+```
+//加载xib文件
+CustomTableView *tableView = [[[NSBundle mainBundle]loadNibNamed:@"CustomTableView" owner:self options:nil] lastObject];
+[tableView setDataSource:dataSource];
+return tableView;
+```
+从xib文件中通过名字进行加载。
+

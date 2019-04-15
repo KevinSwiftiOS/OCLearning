@@ -934,4 +934,70 @@ CustomTableView *tableView = [[[NSBundle mainBundle]loadNibNamed:@"CustomTableVi
 return tableView;
 ```
 从xib文件中通过名字进行加载。
+### 视频39重点
+纯代码方式自定义tableViewCell
+创建tableViewCell继承自UITableViewCell 随后再内部创建控件
+```
+#import <UIKit/UIKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
+@interface FoodCellTableViewCell : UITableViewCell
+@property(nonatomic,strong)UILabel *titleLabel;
+@property(nonatomic,strong)UILabel *noteLabel;
+-(void)updateCellWithModel;
+@end
+
+NS_ASSUME_NONNULL_END
+
+```
+在tableViewCell.m中实现init的方法
+```
+-(instancetype)init{
+self  = [super init];
+if(self){
+[self setTitleLabel:[[UILabel alloc]initWithFrame:CGRectMake(75, 10, 220, 10)]];
+[self.titleLabel setFont:[UIFont systemFontOfSize:10]];
+
+}
+return self;
+}
+```
+随后自定义实现即可。
+在mainViewController中实现方法
+```
+
+@interface MainViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property(nonatomic,strong)UITableView *tableView;
+@property(nonatomic,strong)NSArray *foodArray;
+```
+```
+[self setTitle:@"自定义cell"];
+[self.view setBackgroundColor:[UIColor whiteColor]];
+[self setTableView:[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain]];
+[self.tableView setDataSource:self];
+[self.tableView setDelegate:self];
+[self.view addSubview:self.tableView];
+```
+自定义tableView和setdelegate等方法。
+实现方法
+```
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+return 64;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+return 5;
+}
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+return  nil;
+}
+```
+通过xib方法创建的效果相同。
+appdelegate.m中通过setRootViewController定义导航栏加载
+```
+[self setWindow:[[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds]];
+[self.window makeKeyAndVisible];
+UINavigationController *navCtrl = [[UINavigationController alloc]initWithRootViewController:[[MainViewController alloc]init]];
+[self.window setRootViewController:navCtrl];
+return YES;
+```

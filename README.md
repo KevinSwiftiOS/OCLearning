@@ -1001,3 +1001,27 @@ UINavigationController *navCtrl = [[UINavigationController alloc]initWithRootVie
 [self.window setRootViewController:navCtrl];
 return YES;
 ```
+### 视频40重点
+重用tableViewCell的使用
+```
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+//可重用队列的使用
+ImageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"imageCell"];
+if(!cell){
+cell = [[ImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"imageCell"];
+}
+return cell;
+}
+```
+通过注册tableViewCell的id,这里是ImageCell,随后从重用队列中获取cell,若存在，则获取，若不存在，则注册imageCell。
+或者使用registerClass的方法。
+```
+ [self.tableView registerClass:[ImageTableViewCell class] forCellReuseIdentifier:@"imageCell"];
+ ```
+ 在viewDidLoad中注册cell.可以避免使用ImageTableViewCell的alloc方法。
+ ```
+ if(!cell){
+ cell = [[ImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"imageCell"];
+ }
+ ```
+ 

@@ -1024,4 +1024,53 @@ return cell;
  cell = [[ImageTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"imageCell"];
  }
  ```
+ ### 视频44重点 
+ UIScrollView的代理设置
+ ```
+ @interface HeaderView : UIView<UIScrollViewDelegate>
+ @property(nonatomic,strong)UIScrollView *scrollView;
+ +(instancetype)headerView;
+ ```
+ scrollView设置delegate和设置添加视图
+ ```
+ +(instancetype)headerView{
+ HeaderView *headerView = [[self alloc]init];
+ [headerView setScrollView:[[UIScrollView alloc]init]];
+ [headerView.scrollView setPagingEnabled:true];
+ [headerView.scrollView setShowsHorizontalScrollIndicator:true];
+ [headerView.scrollView setDelegate:headerView];
+ [headerView addSubview:headerView.scrollView];
+ return headerView;
+ }
+ ```
+ timer定时器的设置
+ ```
+ -(void)initTimer{
+ [self setTimer:[NSTimer timerWithTimeInterval:2 target:self selector:@selector(changeTimer) userInfo:nil repeats:true]];
+ [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSDefaultRunLoopMode];
+ 
+ }
+ ```
+ 当开始拖拽的时候，定时器关闭，当拖拽结束，定时器开启
+ ```
+ -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+ if(self.timer){
+ [self.timer invalidate];
+ [self setTimer:nil];
+ }
+ }
+ -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+ [self initTimer];
+ }
+ ```
+ headerView表头的设置
+ ```
+ [self setTableView:[[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain]];
+ [self.tableView setDataSource:self];
+ [self.tableView setDelegate:self];
+ [self  setHeaderView:[HeaderView headerView]];
+ //设置表头视图
+ [self.tableView setTableHeaderView:self.headerView];
+ ```
+ 
  
